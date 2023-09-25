@@ -2,14 +2,38 @@
 # Jeramee Oliver
 # Mini Project 2
 
+# (5/5 points) Initial comments with your name, class and project at the top of your .py file.
+
+# (5/5 points) Proper import of packages used.
+import pandas as pd
+
+'''
+data = pd.read_csv('artists.csv', index_col='Artist')
+
+print(data.head())
+'''
+
+df = pd.read_csv('US-Presidents.csv')
+df = df.iloc[:, :4]
+print(df)
+
+
+
+
+
+'''
 import yfinance as yf
 import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
 
-# (5/5 points) Initial comments with your name, class and project at the top of your .py file.
-# (5/5 points) Proper import of packages used.
+
+
+
+
+
+
 # (20/20 points) Using a data source of your choice, such as data from data.gov or using the Faker package, generate or retrieve some data for creating basic statistics on. This will generally come in as json data, etc.
 # Think of some question you would like to solve such as:
 # "How many homes in the US have access to 100Mbps Internet or more?"
@@ -101,5 +125,5 @@ for stock in getStocks():
     getClosing(stock)
     printGraph(stock)
 
-
+'''
 
