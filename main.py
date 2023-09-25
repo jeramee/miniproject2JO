@@ -65,11 +65,17 @@ df['IQ'] = df['IQ'].fillna('120')
 df['IQ'] = df['IQ'].apply(lambda x: max(map(int, re.findall(r'\d+', x))))
 print(df['IQ'])
 
+column_names = df.columns.tolist()
+print(column_names)
+
+df['Net worth((millions of 2022 US$))'] = df['Net worth((millions of 2022 US$))'].replace('<1', '1')
+print(df['Net worth((millions of 2022 US$))'])
+
+df['Education'] = df['Education'].apply(lambda x: 0 if 'No formal education' in x else 1 if 'did not graduate' in x else 2)
+print(df['Education'])
 
 
-
-
-
+print(df['Age'])
 
 
 
