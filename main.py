@@ -10,12 +10,11 @@ from datetime import datetime
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
+import seaborn as sns
+sns.set() # apply the default seaborn theme
 
-'''
-data = pd.read_csv('artists.csv', index_col='Artist')
-
-print(data.head())
-'''
+# Now your matplotlib plots will be styled with seaborn's default theme
+# which in my opinion looks better than matplotlib's default theme
 
 # Start of program
 # Create our charts folder
@@ -27,22 +26,22 @@ except FileExistsError:
 df = pd.read_csv('US-Presidents.csv')
 
 column_names = df.columns.tolist()
-#print(column_names)
-
+# print(column_names)
 
 net_worth = df['Net worth((millions of 2022 US$))']
 
-#print(net_worth)
+# print(net_worth)
 
 comparison_table = df[['Age', 'Net worth((millions of 2022 US$))', 'Political party[11]', 'Years in office', 'IQ']]
-#print(comparison_table)
+# print(comparison_table)
 
-#print(df['Education'])
+# print(df['Education'])
 
 term = df['Years in office']
-#print(term)  # if you want to print and see the contents of term
+# print(term)  # if you want to print and see the contents of term
 
 
+# Sanitized the data from the years.
 def calculate_years(term):
     years = re.findall(r'\d{4}', term)
     start_year = years[0]
@@ -62,15 +61,15 @@ def calculate_years(term):
 df['Total Years'] = df['Years in office'].apply(calculate_years)
 
 # print out the results
-#print(df['Total Years'])
+# print(df['Total Years'])
 
 
 df['IQ'] = df['IQ'].fillna('120')
 df['IQ'] = df['IQ'].apply(lambda x: max(map(int, re.findall(r'\d+', x))))
-#print(df['IQ'])
+# print(df['IQ'])
 
 column_names = df.columns.tolist()
-#print(column_names)
+# print(column_names)
 
 # The regex \D+ means "one or more non-digit characters".
 df['Net worth((millions of 2022 US$))'] = df['Net worth((millions of 2022 US$))'].str.replace('\D+', '', regex=True)
@@ -78,28 +77,28 @@ df['Net worth((millions of 2022 US$))'] = df['Net worth((millions of 2022 US$))'
 # Convert to integer
 df['Net worth((millions of 2022 US$))'] = df['Net worth((millions of 2022 US$))'].astype(int)
 
-print(df['Net worth((millions of 2022 US$))'])
+# print(df['Net worth((millions of 2022 US$))'])
 
 
 df['Education'] = df['Education'].apply(lambda x: 0 if 'No formal education' in x else 1 if 'did not graduate' in x else 2)
-#print(df['Education'])
+# print(df['Education'])
 
 # In this line, we first split the string on spaces, take the first part,
 # then use a regex to replace all non-numeric characters with an empty string,
 # and finally, convert the result to integers.
 df['Age'] = df['Age'].str.split(' ').str[0].replace('\D+', '', regex=True).astype(int)
 
-#print(df['Age'])
+# print(df['Age'])
 
 
 
-# Code for Comparing Age to Networth
+# Code for Comparing Networth to Age
 plt.figure(figsize=(10,6))
 plt.scatter(df['Age'], df['Net worth((millions of 2022 US$))'])
 plt.xlabel('Age')
 plt.ylabel('Net worth((millions of 2022 US$))')
 plt.title('Comparing Net worth with Age')
-plt.savefig('charts/age_vs_net_worth.png')  # save the plot as a png file in "charts" directory
+plt.savefig('charts/networth_vs_age.png')  # save the plot as a png file in "charts" directory
 # Clears plot had trouble with that
 plt.show()
 
@@ -145,8 +144,10 @@ plt.show()
 # Code for Comparing Networth to Number of Years in office
 plt.figure(figsize=(10,6))
 plt.scatter(df['Total Years'], df['Net worth((millions of 2022 US$))'])
-plt.xlabel('Number of Years in office')
+plt.xlabel('Number of Years in Office')
 plt.ylabel('Net worth((millions of 2022 US$))')
 plt.title('Comparing Net worth with Years in office')
 plt.savefig('charts/networth_vs_Years.png')
 plt.show()
+
+print('Your program has completed running. Please collect your documents in the charts folder master.')
