@@ -14,9 +14,22 @@ print(data.head())
 '''
 
 df = pd.read_csv('US-Presidents.csv')
+
+column_names = df.columns.tolist()
+print(column_names)
+
+
+net_worth = df['Net worth((millions of 2022 US$))']
+
+print(net_worth)
+
+comparison_table = df[['Age', 'Net worth((millions of 2022 US$))', 'Political party[11]', 'Years in office', 'IQ']]
+print(comparison_table)
+
+print(df['Education'])
+
 df = df.iloc[:, :4]
 print(df)
-
 
 
 
