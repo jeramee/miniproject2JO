@@ -6,6 +6,8 @@
 
 # (5/5 points) Proper import of packages used.
 import pandas as pd
+from datetime import datetime
+import re
 
 '''
 data = pd.read_csv('artists.csv', index_col='Artist')
@@ -28,8 +30,45 @@ print(comparison_table)
 
 print(df['Education'])
 
-df = df.iloc[:, :4]
-print(df)
+term = df['Years in office']
+print(term)  # if you want to print and see the contents of term
+
+
+import re
+from datetime import datetime
+import pandas as pd
+
+
+def calculate_years(term):
+    years = re.findall(r'\d{4}', term)
+    start_year = years[0]
+
+    if len(years) < 2:
+        if "present" in term.lower():
+            end_year = datetime.now().year
+        else:
+            end_year = start_year
+    else:
+        end_year = years[1]
+
+    total_years = int(end_year) - int(start_year)
+    return total_years
+
+# Use the calculate_years function on 'Years in office' column
+df['Total Years'] = df['Years in office'].apply(calculate_years)
+
+# print out the results
+print(df['Total Years'])
+
+
+df['IQ'] = df['IQ'].fillna('120')
+df['IQ'] = df['IQ'].apply(lambda x: max(map(int, re.findall(r'\d+', x))))
+print(df['IQ'])
+
+
+
+
+
 
 
 
